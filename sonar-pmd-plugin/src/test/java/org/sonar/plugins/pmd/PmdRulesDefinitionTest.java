@@ -19,8 +19,6 @@
  */
 package org.sonar.plugins.pmd;
 
-import java.util.List;
-
 import com.google.common.collect.Iterables;
 import org.junit.jupiter.api.Test;
 import org.sonar.api.PropertyType;
@@ -29,60 +27,62 @@ import org.sonar.api.server.rule.RulesDefinition.Param;
 import org.sonar.api.server.rule.RulesDefinition.Rule;
 import org.sonar.plugins.pmd.rule.PmdRulesDefinition;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class PmdRulesDefinitionTest {
 
-    @Test
-    void test() {
-        PmdRulesDefinition definition = new PmdRulesDefinition();
-        RulesDefinition.Context context = new RulesDefinition.Context();
-        definition.define(context);
-        RulesDefinition.Repository repository = context.repository(PmdConstants.REPOSITORY_KEY);
+	@Test
+	void test() {
+		PmdRulesDefinition definition = new PmdRulesDefinition();
+		RulesDefinition.Context context = new RulesDefinition.Context();
+		definition.define(context);
+		RulesDefinition.Repository repository = context.repository(PmdConstants.REPOSITORY_KEY);
 
-        assertThat(repository.name()).isEqualTo(PmdConstants.REPOSITORY_NAME);
-        assertThat(repository.language()).isEqualTo(PmdConstants.LANGUAGE_KEY);
+		assertThat(repository.name()).isEqualTo(PmdConstants.REPOSITORY_NAME);
+		assertThat(repository.language()).isEqualTo(PmdConstants.LANGUAGE_KEY);
 
-        List<Rule> rules = repository.rules();
-        assertThat(rules).hasSize(268);
+		List<Rule> rules = repository.rules();
+		assertThat(rules).hasSize(268 + 55);
 
-        for (Rule rule : rules) {
-            assertThat(rule.key()).isNotNull();
-            assertThat(rule.internalKey()).isNotNull();
-            assertThat(rule.name()).isNotNull();
-            assertThat(rule.htmlDescription()).isNotNull();
-            assertThat(rule.severity()).isNotNull();
+		for (Rule rule : rules) {
+			assertThat(rule.key()).isNotNull();
+			assertThat(rule.internalKey()).isNotNull();
+			assertThat(rule.name()).isNotNull();
+			assertThat(rule.htmlDescription()).isNotNull();
+			assertThat(rule.severity()).isNotNull();
 
-            for (Param param : rule.params()) {
-                assertThat(param.name()).isNotNull();
-                assertThat(param.description())
-                        .overridingErrorMessage("Description is not set for parameter '" + param.name() + "' of rule '" + rule.key())
-                        .isNotNull();
-            }
-        }
-    }
+			for (Param param : rule.params()) {
+				assertThat(param.name()).isNotNull();
+				assertThat(param.description())
+						.overridingErrorMessage("Description is not set for parameter '" + param.name() + "' of rule '" + rule.key())
+						.isNotNull();
+			}
+		}
+	}
 
-    @Test
-    void should_exclude_junit_rules() {
-        PmdRulesDefinition definition = new PmdRulesDefinition();
-        RulesDefinition.Context context = new RulesDefinition.Context();
-        definition.define(context);
-        RulesDefinition.Repository repository = context.repository(PmdConstants.REPOSITORY_KEY);
+	@Test
+	void should_exclude_junit_rules() {
+		PmdRulesDefinition definition = new PmdRulesDefinition();
+		RulesDefinition.Context context = new RulesDefinition.Context();
+		definition.define(context);
+		RulesDefinition.Repository repository = context.repository(PmdConstants.REPOSITORY_KEY);
 
-        for (Rule rule : repository.rules()) {
-            assertThat(rule.key()).doesNotContain("JUnitStaticSuite");
-        }
-    }
+		for (Rule rule : repository.rules()) {
+			assertThat(rule.key()).doesNotContain("JUnitStaticSuite");
+		}
+	}
 
-    @Test
-    void should_use_text_parameter_for_xpath_rule() {
-        PmdRulesDefinition definition = new PmdRulesDefinition();
-        RulesDefinition.Context context = new RulesDefinition.Context();
-        definition.define(context);
-        RulesDefinition.Repository repository = context.repository(PmdConstants.REPOSITORY_KEY);
+	@Test
+	void should_use_text_parameter_for_xpath_rule() {
+		PmdRulesDefinition definition = new PmdRulesDefinition();
+		RulesDefinition.Context context = new RulesDefinition.Context();
+		definition.define(context);
+		RulesDefinition.Repository repository = context.repository(PmdConstants.REPOSITORY_KEY);
 
-        Rule xpathRule = Iterables.find(repository.rules(), rule -> rule.key().equals("XPathRule"));
+		Rule xpathRule = Iterables.find(repository.rules(), rule -> rule.key().equals("XPathRule"));
 
-        assertThat(xpathRule.param("xpath").type().type()).isEqualTo(PropertyType.TEXT.name());
-    }
+		assertThat(xpathRule.param("xpath").type().type()).isEqualTo(PropertyType.TEXT.name());
+	}
 }
