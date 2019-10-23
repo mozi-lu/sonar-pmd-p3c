@@ -32,6 +32,8 @@ import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
+import org.sonar.plugins.pmd.PmdConstants;
+import org.sonar.plugins.pmd.language.VelocityLanguage;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -39,6 +41,7 @@ import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 描述：阿里P3C规范加载器<br>
@@ -50,16 +53,14 @@ import java.util.List;
  *
  * @author 陆思骏
  */
-class AliRulesLoader {
+public class AliRulesDefinition implements RulesDefinition {
 
-    private AliRulesLoader() {
-    }
-
-    private static final Logger LOGGER = Loggers.get(AliRulesLoader.class);
+    private static final Logger LOGGER = Loggers.get(AliRulesDefinition.class);
 
     private static List<String> configPaths = Lists.newArrayList();
 
     static {
+        // Java
         configPaths.add("rulesets/java/ali-comment.xml");
         configPaths.add("rulesets/java/ali-concurrent.xml");
         configPaths.add("rulesets/java/ali-constant.xml");
@@ -70,10 +71,33 @@ class AliRulesLoader {
         configPaths.add("rulesets/java/ali-orm.xml");
         configPaths.add("rulesets/java/ali-other.xml");
         configPaths.add("rulesets/java/ali-set.xml");
+        // Velocity
+        configPaths.add("rulesets/vm/ali-other.xml");
     }
 
-    static void load(RulesDefinition.NewRepository repository) {
+    public static List<String> getVelocityRules() {
+        List<Rule> rules = readConfigXml("/rulesets/vm/ali-other.xml");
+        return rules.stream().map(rule -> rule.name).collect(Collectors.toList());
+    }
+
+    @Override
+    public void define(Context context) {
+        NewRepository javaRepository = context
+                .createRepository(PmdConstants.REPOSITORY_P3C_JAVA_KEY, PmdConstants.LANGUAGE_KEY)
+                .setName(PmdConstants.REPOSITORY_P3C_NAME);
+        NewRepository vmRepository = context
+                .createRepository(PmdConstants.REPOSITORY_P3C_VM_KEY, VelocityLanguage.KEY)
+                .setName(PmdConstants.REPOSITORY_P3C_NAME);
         for (String configPath : configPaths) {
+            NewRepository repository;
+            if (configPath.startsWith("rulesets/java")) {
+                repository = javaRepository;
+            } else if (configPath.startsWith("rulesets/vm")) {
+                repository = vmRepository;
+            } else {
+                LOGGER.error("Failed to load P3C PMD RuleSet: " + configPath);
+                continue;
+            }
             List<Rule> rules = readConfigXml("/" + configPath);
             String rulesXml = parseRules(configPath, rules);
             if (rulesXml.contains("<description><![CDATA[]]>")) {
@@ -90,6 +114,9 @@ class AliRulesLoader {
                 LOGGER.error("Failed to load P3C PMD RuleSet.", e);
             }
         }
+
+        javaRepository.done();
+        vmRepository.done();
     }
 
     private static List<Rule> readConfigXml(String path) {

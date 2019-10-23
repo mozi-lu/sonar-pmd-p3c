@@ -27,6 +27,9 @@ public final class PmdConstants {
     public static final String PLUGIN_KEY = "pmd";
     public static final String REPOSITORY_KEY = PLUGIN_KEY;
     public static final String REPOSITORY_NAME = "PMD";
+    public static final String REPOSITORY_P3C_JAVA_KEY = "pmd-p3c-java";
+    public static final String REPOSITORY_P3C_VM_KEY = "pmd-p3c-vm";
+    public static final String REPOSITORY_P3C_NAME = "PMD P3C";
     public static final String TEST_REPOSITORY_KEY = "pmd-unit-tests";
     public static final String TEST_REPOSITORY_NAME = "PMD Unit Tests";
     public static final String XPATH_CLASS = "net.sourceforge.pmd.lang.rule.XPathRule";

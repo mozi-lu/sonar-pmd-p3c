@@ -33,6 +33,7 @@ import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
 import org.sonar.api.batch.rule.ActiveRules;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
+import org.sonar.plugins.pmd.language.VelocityLanguage;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -121,6 +122,8 @@ class PmdSensorTest {
 
         when(profile.findByRepository(PmdConstants.REPOSITORY_KEY).isEmpty()).thenReturn(true);
         when(profile.findByRepository(PmdConstants.TEST_REPOSITORY_KEY).isEmpty()).thenReturn(true);
+        when(profile.findByRepository(PmdConstants.REPOSITORY_P3C_JAVA_KEY).isEmpty()).thenReturn(true);
+        when(profile.findByRepository(PmdConstants.REPOSITORY_P3C_VM_KEY).isEmpty()).thenReturn(true);
 
         // when
         pmdSensor.execute(sensorContext);
@@ -206,13 +209,13 @@ class PmdSensorTest {
 
         // given
         final SensorDescriptor mockDescriptor = mock(SensorDescriptor.class);
-        when(mockDescriptor.onlyOnLanguage(anyString())).thenReturn(mockDescriptor);
+        when(mockDescriptor.onlyOnLanguages(anyString(), anyString())).thenReturn(mockDescriptor);
 
         // when
         pmdSensor.describe(mockDescriptor);
 
         // then
-        verify(mockDescriptor).onlyOnLanguage(PmdConstants.LANGUAGE_KEY);
+        verify(mockDescriptor).onlyOnLanguages(PmdConstants.LANGUAGE_KEY, VelocityLanguage.KEY);
         verify(mockDescriptor).name("PmdSensor");
     }
 

@@ -21,8 +21,11 @@ package org.sonar.plugins.pmd;
 
 import org.sonar.api.Plugin;
 import org.sonar.api.config.PropertyDefinition;
+import org.sonar.plugins.pmd.language.VelocityLanguage;
 import org.sonar.plugins.pmd.profile.PmdProfileExporter;
 import org.sonar.plugins.pmd.profile.PmdProfileImporter;
+import org.sonar.plugins.pmd.profile.VelocityQualityProfile;
+import org.sonar.plugins.pmd.rule.AliRulesDefinition;
 import org.sonar.plugins.pmd.rule.PmdRulesDefinition;
 import org.sonar.plugins.pmd.rule.PmdUnitTestsRulesDefinition;
 
@@ -39,6 +42,10 @@ public class PmdPlugin implements Plugin {
                         .name("Generate XML Report")
                         .hidden()
                         .build(),
+
+                VelocityLanguage.class,
+                VelocityQualityProfile.class,
+                AliRulesDefinition.class,
 
                 PmdSensor.class,
                 PmdConfiguration.class,

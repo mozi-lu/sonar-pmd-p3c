@@ -19,17 +19,17 @@
  */
 package org.sonar.plugins.pmd.rule;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.Properties;
+
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 import org.sonar.plugins.pmd.PmdConstants;
 import org.sonar.squidbridge.rules.SqaleXmlLoader;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.Properties;
 
 public final class PmdRulesDefinition implements RulesDefinition {
 
@@ -61,8 +61,6 @@ public final class PmdRulesDefinition implements RulesDefinition {
         NewRepository repository = context
                 .createRepository(PmdConstants.REPOSITORY_KEY, PmdConstants.LANGUAGE_KEY)
                 .setName(PmdConstants.REPOSITORY_NAME);
-
-        AliRulesLoader.load(repository);
 
         extractRulesData(repository, "/org/sonar/plugins/pmd/rules.xml", "/org/sonar/l10n/pmd/rules/pmd");
 

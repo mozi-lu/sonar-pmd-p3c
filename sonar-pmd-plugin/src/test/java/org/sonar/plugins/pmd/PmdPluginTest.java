@@ -27,8 +27,10 @@ import org.sonar.api.SonarQubeSide;
 import org.sonar.api.SonarRuntime;
 import org.sonar.api.internal.SonarRuntimeImpl;
 import org.sonar.api.utils.Version;
+import org.sonar.plugins.pmd.language.VelocityLanguage;
 import org.sonar.plugins.pmd.profile.PmdProfileExporter;
 import org.sonar.plugins.pmd.profile.PmdProfileImporter;
+import org.sonar.plugins.pmd.rule.AliRulesDefinition;
 import org.sonar.plugins.pmd.rule.PmdRulesDefinition;
 import org.sonar.plugins.pmd.rule.PmdUnitTestsRulesDefinition;
 
@@ -47,8 +49,10 @@ class PmdPluginTest {
 
         subject.define(context);
         final List extensions = context.getExtensions();
-        assertThat(extensions).hasSize(9);
+        assertThat(extensions).hasSize(9+3);
         assertThat(extensions).contains(
+                VelocityLanguage.class,
+                AliRulesDefinition.class,
                 PmdSensor.class,
                 PmdConfiguration.class,
                 PmdExecutor.class,
