@@ -168,7 +168,8 @@ public class AliRulesDefinition implements RulesDefinition {
                 rule.priority = Integer.valueOf(StringUtils.trim(cursor.collectDescendantText()));
             }
             if (StringUtils.equalsIgnoreCase("example", nodeName)) {
-                String example = StringUtils.trim(cursor.collectDescendantText());
+//                String example = StringUtils.trim(cursor.collectDescendantText());
+                String example = cursor.collectDescendantText();
                 if (rule.examples == null) {
                     rule.examples = Lists.newArrayList();
                 }
@@ -192,12 +193,16 @@ public class AliRulesDefinition implements RulesDefinition {
         builder.append("<rule key=\"");
         builder.append(rule.name);
         builder.append("\">");
+        builder.append("\n");
 
         builder.append("<tag>p3c</tag>");
+        builder.append("\n");
 
         builder.append("<name><![CDATA[");
-        builder.append(I18nResources.getMessage(rule.message));
+        builder.append(rule.name);
+//        builder.append(I18nResources.getMessage(rule.message));
         builder.append("]]></name>");
+        builder.append("\n");
 
         builder.append("<priority>");
 
@@ -218,14 +223,18 @@ public class AliRulesDefinition implements RulesDefinition {
                 builder.append("INFO");
         }
         builder.append("</priority>");
+        builder.append("\n");
 
         builder.append("<description><![CDATA[");
-        if (rule.description == null && rule.examples == null) {
-            builder.append("暂无介绍");
-        }
+
+        builder.append(I18nResources.getMessage(rule.message));
+//        if (rule.description == null && rule.examples == null) {
+//            builder.append("暂无介绍");
+//        }
         if (rule.description != null) {
             String description = I18nResources.getMessage(rule.description);
             for (String line : StringUtils.split(description, System.lineSeparator())) {
+                builder.append("\n");
                 builder.append("<p>");
                 builder.append(StringEscapeUtils.escapeHtml(line));
                 builder.append("</p>");
@@ -233,18 +242,21 @@ public class AliRulesDefinition implements RulesDefinition {
         }
         if (rule.examples != null) {
             for (String example : rule.examples) {
+                builder.append("\n");
                 builder.append("<pre>");
                 builder.append(StringEscapeUtils.escapeHtml(example));
                 builder.append("</pre>");
             }
         }
         builder.append("]]></description>");
+        builder.append("\n");
 
         builder.append("<configKey>");
         builder.append(configPath);
         builder.append("/");
         builder.append(rule.name);
         builder.append("</configKey>");
+        builder.append("\n");
 
         builder.append("</rule>");
     }
