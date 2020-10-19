@@ -19,14 +19,6 @@
  */
 package org.sonar.plugins.pmd;
 
-import java.io.File;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import com.google.common.collect.ImmutableList;
 import net.sourceforge.pmd.Report;
 import net.sourceforge.pmd.RuleContext;
@@ -44,16 +36,18 @@ import org.sonar.api.batch.rule.ActiveRules;
 import org.sonar.api.config.internal.MapSettings;
 import org.sonar.plugins.java.api.JavaResourceLocator;
 
+import java.io.File;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 class PmdExecutorTest {
 
@@ -101,9 +95,10 @@ class PmdExecutorTest {
     @Test
     void should_execute_pmd_on_source_files_and_test_files() {
         DefaultInputFile srcFile = file("src/Class.java", Type.MAIN);
-        DefaultInputFile tstFile = file("test/ClassTest.java", Type.TEST);
+        DefaultInputFile tstFile = file("test/java/org/sonar/plugins/pmd/TestClass.java", Type.TEST);
         setupPmdRuleSet(PmdConstants.REPOSITORY_KEY, "simple.xml");
         setupPmdRuleSet(PmdConstants.TEST_REPOSITORY_KEY, "junit.xml");
+        setupPmdRuleSet(PmdConstants.REPOSITORY_P3C_JAVA_KEY, "pmd-p3c-java.xml");
         fileSystem.add(srcFile);
         fileSystem.add(tstFile);
 
@@ -125,11 +120,12 @@ class PmdExecutorTest {
         DefaultInputFile srcFile = file("src/Class.java", Type.MAIN);
         doReturn(pmdTemplate).when(pmdExecutor).createPmdTemplate(any(URLClassLoader.class));
         setupPmdRuleSet(PmdConstants.REPOSITORY_KEY, "simple.xml");
+        setupPmdRuleSet(PmdConstants.REPOSITORY_P3C_JAVA_KEY, "pmd-p3c-java.xml");
         fileSystem.add(srcFile);
 
         pmdExecutor.execute();
 
-        verify(pmdTemplate).process(eq(srcFile), any(RuleSets.class), any(RuleContext.class));
+        verify(pmdTemplate, times(2)).process(eq(srcFile), any(RuleSets.class), any(RuleContext.class));
         verifyNoMoreInteractions(pmdTemplate);
     }
 

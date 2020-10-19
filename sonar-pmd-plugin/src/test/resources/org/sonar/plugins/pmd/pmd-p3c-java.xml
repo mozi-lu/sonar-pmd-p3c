@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="pmd-p3c-java">
+  <description>Sonar Profile: pmd-p3c-java</description>
+  <rule ref="rulesets/java/ali-set.xml/UnsupportedExceptionWithModifyAsListRule">
+    <priority>2</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-other.xml/AvoidMissUseOfMathRandomRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-concurrent.xml/AvoidUseTimerRule">
+    <priority>1</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-set.xml/ClassCastExceptionWithSubListToArrayListRule">
+    <priority>2</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-set.xml/DontModifyInForeachCircleRule">
+    <priority>1</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-concurrent.xml/ThreadPoolCreationRule">
+    <priority>1</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-other.xml/MethodTooLongRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-naming.xml/BooleanPropertyShouldNotStartWithIsRule">
+    <priority>2</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-naming.xml/ServiceOrDaoClassShouldEndWithImplRule">
+    <priority>2</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-flowcontrol.xml/AvoidComplexConditionRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-naming.xml/ExceptionClassShouldEndWithExceptionRule">
+    <priority>2</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-oop.xml/PojoNoDefaultValueRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-other.xml/AvoidDoubleOrFloatEqualCompareRule">
+    <priority>2</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-oop.xml/EqualsAvoidNullRule">
+    <priority>2</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-set.xml/ClassCastExceptionWithToArrayRule">
+    <priority>2</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-other.xml/AvoidApacheBeanUtilsCopyRule">
+    <priority>1</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-concurrent.xml/AvoidManuallyCreateThreadRule">
+    <priority>2</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-oop.xml/BigDecimalAvoidDoubleConstructorRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-naming.xml/ConstantFieldShouldBeUpperCaseRule">
+    <priority>2</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-concurrent.xml/LockShouldWithTryFinallyRule">
+    <priority>1</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-naming.xml/AbstractClassShouldStartWithAbstractNamingRule">
+    <priority>2</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-naming.xml/LowerCamelCaseVariableNamingRule">
+    <priority>2</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-set.xml/CollectionInitShouldAssignCapacityRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-other.xml/AvoidNewDateGetTimeRule">
+    <priority>1</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-constant.xml/UpperEllRule">
+    <priority>1</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-comment.xml/AbstractMethodOrInterfaceMethodMustUseJavadocRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-concurrent.xml/AvoidConcurrentCompetitionRandomRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-concurrent.xml/ThreadLocalShouldRemoveRule">
+    <priority>2</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-flowcontrol.xml/SwitchStatementRule">
+    <priority>2</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-oop.xml/WrapperTypeEqualityRule">
+    <priority>1</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-flowcontrol.xml/AvoidNegationOperatorRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-other.xml/UseRightCaseForDateFormatRule">
+    <priority>2</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-oop.xml/PojoMustUsePrimitiveFieldRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-comment.xml/RemoveCommentedCodeRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-comment.xml/CommentsMustBeJavadocFormatRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-naming.xml/TestClassShouldEndWithTestNamingRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-other.xml/AvoidPatternCompileInMethodRule">
+    <priority>1</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-comment.xml/EnumConstantsMustHaveCommentRule">
+    <priority>2</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-naming.xml/ArrayNamingShouldHaveBracketRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-set.xml/ConcurrentExceptionWithModifyOriginSubListRule">
+    <priority>2</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-concurrent.xml/ThreadShouldSetNameRule">
+    <priority>2</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-concurrent.xml/CountDownShouldInFinallyRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-orm.xml/IbatisMethodQueryForListRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-exception.xml/AvoidReturnInFinallyRule">
+    <priority>2</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-constant.xml/UndefineMagicConstantRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-comment.xml/ClassMustHaveAuthorRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-exception.xml/MethodReturnWrapperTypeRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-oop.xml/StringConcatRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-naming.xml/PackageNamingRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-concurrent.xml/AvoidCallStaticSimpleDateFormatRule">
+    <priority>2</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-exception.xml/TransactionMustHaveRollbackRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-comment.xml/AvoidCommentBehindStatementRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-oop.xml/PojoMustOverrideToStringRule">
+    <priority>3</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-naming.xml/AvoidStartWithDollarAndUnderLineNamingRule">
+    <priority>2</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-flowcontrol.xml/NeedBraceRule">
+    <priority>1</priority>
+  </rule>
+  <rule ref="rulesets/java/ali-naming.xml/ClassNamingShouldBeCamelRule">
+    <priority>3</priority>
+  </rule>
+</ruleset>
+

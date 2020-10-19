@@ -49,10 +49,9 @@ class PmdPluginTest {
 
         subject.define(context);
         final List extensions = context.getExtensions();
-        assertThat(extensions).hasSize(9+3);
+//        assertThat(extensions).hasSize(9+3);
+        assertThat(extensions).hasSize(9+1);
         assertThat(extensions).contains(
-                VelocityLanguage.class,
-                AliRulesDefinition.class,
                 PmdSensor.class,
                 PmdConfiguration.class,
                 PmdExecutor.class,
@@ -60,7 +59,11 @@ class PmdPluginTest {
                 PmdUnitTestsRulesDefinition.class,
                 PmdProfileExporter.class,
                 PmdProfileImporter.class,
-                PmdViolationRecorder.class
+                PmdViolationRecorder.class,
+
+//                VelocityLanguage.class,
+//                VelocityQualityProfile.class,
+                AliRulesDefinition.class
         );
     }
 

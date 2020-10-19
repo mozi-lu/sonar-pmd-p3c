@@ -19,8 +19,6 @@
  */
 package org.sonar.plugins.pmd;
 
-import java.net.URI;
-
 import net.sourceforge.pmd.RuleViolation;
 import org.sonar.api.batch.ScannerSide;
 import org.sonar.api.batch.fs.FileSystem;
@@ -31,6 +29,8 @@ import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.batch.sensor.issue.NewIssueLocation;
 import org.sonar.api.rule.RuleKey;
+
+import java.net.URI;
 
 @ScannerSide
 public class PmdViolationRecorder {
@@ -81,6 +81,12 @@ public class PmdViolationRecorder {
     private RuleKey findActiveRuleKeyFor(RuleViolation violation) {
         final String internalRuleKey = violation.getRule().getName();
         RuleKey ruleKey = RuleKey.of(PmdConstants.REPOSITORY_KEY, internalRuleKey);
+
+        if (activeRules.find(ruleKey) != null) {
+            return ruleKey;
+        }
+
+        ruleKey = RuleKey.of(PmdConstants.REPOSITORY_P3C_JAVA_KEY, internalRuleKey);
 
         if (activeRules.find(ruleKey) != null) {
             return ruleKey;

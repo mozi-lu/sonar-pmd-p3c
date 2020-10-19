@@ -43,10 +43,6 @@ public class PmdPlugin implements Plugin {
                         .hidden()
                         .build(),
 
-                VelocityLanguage.class,
-                VelocityQualityProfile.class,
-                AliRulesDefinition.class,
-
                 PmdSensor.class,
                 PmdConfiguration.class,
                 PmdExecutor.class,
@@ -54,7 +50,11 @@ public class PmdPlugin implements Plugin {
                 PmdUnitTestsRulesDefinition.class,
                 PmdProfileExporter.class,
                 PmdProfileImporter.class,
-                PmdViolationRecorder.class
+                PmdViolationRecorder.class,
+
+//                VelocityLanguage.class,
+//                VelocityQualityProfile.class,
+                AliRulesDefinition.class
         );
     }
 }

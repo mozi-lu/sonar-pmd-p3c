@@ -19,23 +19,7 @@
  */
 package org.sonar.plugins.pmd;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import net.sourceforge.pmd.PMDVersion;
-import net.sourceforge.pmd.Report;
-import net.sourceforge.pmd.RuleContext;
-import net.sourceforge.pmd.RuleSet;
-import net.sourceforge.pmd.RuleSetFactory;
-import net.sourceforge.pmd.RuleSetNotFoundException;
-import net.sourceforge.pmd.RuleSets;
+import net.sourceforge.pmd.*;
 import org.sonar.api.batch.ScannerSide;
 import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
@@ -49,6 +33,16 @@ import org.sonar.api.utils.log.Profiler;
 import org.sonar.plugins.java.api.JavaResourceLocator;
 import org.sonar.plugins.pmd.xml.PmdRuleSet;
 import org.sonar.plugins.pmd.xml.PmdRuleSets;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @ScannerSide
 public class PmdExecutor {
@@ -97,6 +91,8 @@ public class PmdExecutor {
         PmdTemplate pmdFactory = createPmdTemplate(classLoader);
         executeRules(pmdFactory, context, javaFiles(Type.MAIN), PmdConstants.REPOSITORY_KEY);
         executeRules(pmdFactory, context, javaFiles(Type.TEST), PmdConstants.TEST_REPOSITORY_KEY);
+        executeRules(pmdFactory, context, javaFiles(Type.MAIN), PmdConstants.REPOSITORY_P3C_JAVA_KEY);
+        executeRules(pmdFactory, context, javaFiles(Type.TEST), PmdConstants.REPOSITORY_P3C_JAVA_KEY);
 
         pmdConfiguration.dumpXmlReport(report);
 

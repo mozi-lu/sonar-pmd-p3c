@@ -45,16 +45,19 @@ public class PmdSensor implements Sensor {
     private boolean shouldExecuteOnProject() {
         return (hasFilesToCheck(Type.MAIN, PmdConstants.REPOSITORY_KEY))
                 || (hasFilesToCheck(Type.MAIN, PmdConstants.REPOSITORY_P3C_JAVA_KEY))
-                || (hasFilesToCheck(Type.MAIN, PmdConstants.REPOSITORY_P3C_VM_KEY))
+//                || (hasFilesToCheck(Type.MAIN, PmdConstants.REPOSITORY_P3C_VM_KEY))
                 || (hasFilesToCheck(Type.TEST, PmdConstants.TEST_REPOSITORY_KEY))
                 || (hasFilesToCheck(Type.TEST, PmdConstants.REPOSITORY_P3C_JAVA_KEY))
-                || (hasFilesToCheck(Type.TEST, PmdConstants.REPOSITORY_P3C_VM_KEY));
+//                || (hasFilesToCheck(Type.TEST, PmdConstants.REPOSITORY_P3C_VM_KEY))
+                ;
     }
 
     private boolean hasFilesToCheck(Type type, String repositoryKey) {
         FilePredicates predicates = fs.predicates();
         final boolean hasMatchingFiles = fs.hasFiles(predicates.and(
-                predicates.hasLanguages(PmdConstants.LANGUAGE_KEY, VelocityLanguage.KEY),
+                predicates.hasLanguages(PmdConstants.LANGUAGE_KEY
+//                        , VelocityLanguage.KEY
+                ),
                 predicates.hasType(type)));
         return hasMatchingFiles && !profile.findByRepository(repositoryKey).isEmpty();
     }
@@ -66,7 +69,9 @@ public class PmdSensor implements Sensor {
 
     @Override
     public void describe(SensorDescriptor descriptor) {
-        descriptor.onlyOnLanguages(PmdConstants.LANGUAGE_KEY, VelocityLanguage.KEY)
+        descriptor.onlyOnLanguages(PmdConstants.LANGUAGE_KEY
+//                , VelocityLanguage.KEY
+        )
                 .name("PmdSensor");
     }
 

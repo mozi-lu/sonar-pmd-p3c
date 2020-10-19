@@ -123,7 +123,7 @@ class PmdSensorTest {
         when(profile.findByRepository(PmdConstants.REPOSITORY_KEY).isEmpty()).thenReturn(true);
         when(profile.findByRepository(PmdConstants.TEST_REPOSITORY_KEY).isEmpty()).thenReturn(true);
         when(profile.findByRepository(PmdConstants.REPOSITORY_P3C_JAVA_KEY).isEmpty()).thenReturn(true);
-        when(profile.findByRepository(PmdConstants.REPOSITORY_P3C_VM_KEY).isEmpty()).thenReturn(true);
+//        when(profile.findByRepository(PmdConstants.REPOSITORY_P3C_VM_KEY).isEmpty()).thenReturn(true);
 
         // when
         pmdSensor.execute(sensorContext);
@@ -209,13 +209,17 @@ class PmdSensorTest {
 
         // given
         final SensorDescriptor mockDescriptor = mock(SensorDescriptor.class);
-        when(mockDescriptor.onlyOnLanguages(anyString(), anyString())).thenReturn(mockDescriptor);
+        when(mockDescriptor.onlyOnLanguages(anyString()
+//                , anyString()
+        )).thenReturn(mockDescriptor);
 
         // when
         pmdSensor.describe(mockDescriptor);
 
         // then
-        verify(mockDescriptor).onlyOnLanguages(PmdConstants.LANGUAGE_KEY, VelocityLanguage.KEY);
+        verify(mockDescriptor).onlyOnLanguages(PmdConstants.LANGUAGE_KEY
+//                , VelocityLanguage.KEY
+        );
         verify(mockDescriptor).name("PmdSensor");
     }
 

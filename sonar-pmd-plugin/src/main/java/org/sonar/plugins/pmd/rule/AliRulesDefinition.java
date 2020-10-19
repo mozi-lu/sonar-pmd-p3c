@@ -71,8 +71,8 @@ public class AliRulesDefinition implements RulesDefinition {
         configPaths.add("rulesets/java/ali-orm.xml");
         configPaths.add("rulesets/java/ali-other.xml");
         configPaths.add("rulesets/java/ali-set.xml");
-        // Velocity
-        configPaths.add("rulesets/vm/ali-other.xml");
+//        // Velocity
+//        configPaths.add("rulesets/vm/ali-other.xml");
     }
 
     public static List<String> getVelocityRules() {
@@ -85,15 +85,15 @@ public class AliRulesDefinition implements RulesDefinition {
         NewRepository javaRepository = context
                 .createRepository(PmdConstants.REPOSITORY_P3C_JAVA_KEY, PmdConstants.LANGUAGE_KEY)
                 .setName(PmdConstants.REPOSITORY_P3C_NAME);
-        NewRepository vmRepository = context
-                .createRepository(PmdConstants.REPOSITORY_P3C_VM_KEY, VelocityLanguage.KEY)
-                .setName(PmdConstants.REPOSITORY_P3C_NAME);
+//        NewRepository vmRepository = context
+//                .createRepository(PmdConstants.REPOSITORY_P3C_VM_KEY, VelocityLanguage.KEY)
+//                .setName(PmdConstants.REPOSITORY_P3C_NAME);
         for (String configPath : configPaths) {
             NewRepository repository;
             if (configPath.startsWith("rulesets/java")) {
                 repository = javaRepository;
-            } else if (configPath.startsWith("rulesets/vm")) {
-                repository = vmRepository;
+//            } else if (configPath.startsWith("rulesets/vm")) {
+//                repository = vmRepository;
             } else {
                 LOGGER.error("Failed to load P3C PMD RuleSet: " + configPath);
                 continue;
@@ -116,7 +116,7 @@ public class AliRulesDefinition implements RulesDefinition {
         }
 
         javaRepository.done();
-        vmRepository.done();
+//        vmRepository.done();
     }
 
     private static List<Rule> readConfigXml(String path) {
@@ -198,7 +198,7 @@ public class AliRulesDefinition implements RulesDefinition {
         builder.append("<tag>p3c</tag>");
         builder.append("\n");
 
-        builder.append("<name><![CDATA[");
+        builder.append("<name><![CDATA[[P3C] ");
         builder.append(rule.name);
 //        builder.append(I18nResources.getMessage(rule.message));
         builder.append("]]></name>");
